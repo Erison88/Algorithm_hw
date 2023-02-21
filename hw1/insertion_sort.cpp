@@ -82,8 +82,8 @@ void Merge(int *arr, int head, int mid, int tail){
 void MergeSort(int *arr, int head, int tail){
     if(head<tail){
         int mid = (head+tail)/2;
-        MergeSort(arr, head, mid);
-        MergeSort(arr, mid+1, tail);
+        MergeSort(arr, head, mid);      //sort the left array
+        MergeSort(arr, mid+1, tail);    //sort the right array
         Merge(arr, head, mid, tail);
     }
 }
