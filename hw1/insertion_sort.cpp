@@ -26,6 +26,15 @@ int main(){
     }
     cout << endl;
 
+    //MergeSort
+    int b[] = {10,3,2,6,1,8,7};
+    MergeSort(b, 0, 6);
+    //print b[]
+    for(int i=0; i<7; i++){
+        cout << b[i] << " ";
+    }
+    cout << endl;
+
     cout << "this is the last line!" << endl;
 
     return 0;
