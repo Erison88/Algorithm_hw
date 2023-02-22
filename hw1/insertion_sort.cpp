@@ -3,22 +3,14 @@
 using namespace std;
 
 //function declaration
+void InsertionSort(int *arr, int arrlen);
 void Merge(int *arr, int head, int mid, int tail);
 void MergeSort(int *arr, int head, int tail);
 
 int main(){
     int a[] = {10,3,2,6,1,8,7};
-    int key = 0;
-    for(int j=0; j<7; j++){
-        key = a[j];
-        //insert a[j] into the sorted a[1,2,...]
-        int i = j-1;
-        while(i>=0 && a[i]>key){
-            a[i+1] = a[i];
-            i = i-1;
-        }
-        a[i+1] = key;
-    }
+   
+   InsertionSort(a, 7);
 
     //print a[]
     for(int i=0; i<7; i++){
@@ -39,6 +31,22 @@ int main(){
 
     return 0;
 }
+
+//below is Insertion sort 
+void InsertionSort(int *arr, int arrlen){
+    int key = 0;
+    for(int j=0; j<arrlen; j++){
+        key = arr[j];
+        //insert arr[j] into the sorted a[1,2,...]
+        int i = j-1;
+        while(i>=0 && arr[i]>key){
+            arr[i+1] = arr[i];
+            i = i-1;
+        }
+        arr[i+1] = key;
+    }
+}
+
 
 // below is Merge sort
 void Merge(int *arr, int head, int mid, int tail){
