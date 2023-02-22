@@ -36,7 +36,7 @@ int main(){
 void InsertionSort(int *arr, int arrlen){
     int key = 0;
     for(int j=0; j<arrlen; j++){
-        key = arr[j];
+        key = arr[j];   //temporarily store the array
         //insert arr[j] into the sorted a[1,2,...]
         int i = j-1;
         while(i>=0 && arr[i]>key){
@@ -87,6 +87,8 @@ void Merge(int *arr, int head, int mid, int tail){
     }
     delete [] leftarr;
     delete [] rightarr;
+    leftarr = NULL;
+    rightarr = NULL;
 }
 
 void MergeSort(int *arr, int head, int tail){
