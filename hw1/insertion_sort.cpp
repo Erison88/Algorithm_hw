@@ -77,6 +77,8 @@ void Merge(int *arr, int head, int mid, int tail){
         rightind++;
         h++;
     }
+    delete [] leftarr;
+    delete [] rightarr;
 }
 
 void MergeSort(int *arr, int head, int tail){
