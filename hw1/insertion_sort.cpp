@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -8,9 +9,14 @@ void Merge(int *arr, int head, int mid, int tail);
 void MergeSort(int *arr, int head, int tail);
 
 int main(){
+    double START, END;
     int a[] = {10,3,2,6,1,8,7};
-   
-   InsertionSort(a, 7);
+
+    START = clock();
+    InsertionSort(a, 7);
+    END = clock();
+    cout << endl << "程式執行所花費：" << (double)clock()/CLOCKS_PER_SEC << " S";
+	cout << endl << "進行運算所花費的時間：" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
 
     //print a[]
     for(int i=0; i<7; i++){
