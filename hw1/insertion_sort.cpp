@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -10,20 +11,28 @@ void MergeSort(int *arr, int head, int tail);
 
 int main(){
     double START, END;
-    int a[] = {10,3,2,6,1,8,7};
-
-    START = clock();
-    InsertionSort(a, 7);
-    END = clock();
-    cout << endl << "程式執行所花費：" << (double)clock()/CLOCKS_PER_SEC << " S";
-	cout << endl << "進行運算所花費的時間：" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
-
-    //print a[]
-    for(int i=0; i<7; i++){
-        cout << a[i] << " ";
+    int size;
+    cout << "input an integer for an array size, and press crtl+d to exit:";
+    while(cin >> size){
+        int *a = new int[size];
+        for(int i=0; i<size; i++){
+            a[i] = rand()%size;
+        }
+        START = clock();
+        InsertionSort(a, size);
+        END = clock();
+        cout << endl << "程式執行所花費：" << (double)clock()/CLOCKS_PER_SEC << " S";
+        cout << endl << "進行運算所花費的時間：" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
+        delete [] a;
+        //print a[]
+        /*
+        for(int i=0; i<size; i++){
+            cout << a[i] << " ";
+        }
+        cout << endl;
+        */
     }
-    cout << endl;
-
+    
     //MergeSort
     int b[] = {10,3,2,6,1,8,7};
     MergeSort(b, 0, 6);
