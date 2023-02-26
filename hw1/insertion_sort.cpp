@@ -14,6 +14,7 @@ int main(){
     int size;
     cout << "input an integer for an array size, and press crtl+d to exit:";
     while(cin >> size){
+        //insertion sort
         int *a = new int[size];
         for(int i=0; i<size; i++){
             a[i] = rand()%size;
@@ -21,9 +22,10 @@ int main(){
         START = clock();
         InsertionSort(a, size);
         END = clock();
-        cout << endl << "程式執行所花費：" << (double)clock()/CLOCKS_PER_SEC << " S";
-        cout << endl << "進行運算所花費的時間：" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
+        cout << endl << "insertion sort程式執行所花費:" << (double)clock()/CLOCKS_PER_SEC << " S";
+        cout << endl << "insertion sort進行運算所花費的時間:" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
         delete [] a;
+        a = NULL;
         //print a[]
         /*
         for(int i=0; i<size; i++){
@@ -31,17 +33,27 @@ int main(){
         }
         cout << endl;
         */
+
+        //Mergesort
+        int *b = new int[size];
+        for(int i=0; i<size; i++){
+            b[i] = rand()%size;
+        }
+        START = clock();
+        MergeSort(b, 0, size-1);
+        END = clock();
+        cout << endl << "mergesort程式執行所花費:" << (double)clock()/CLOCKS_PER_SEC << " S";
+        cout << endl << "mergesort進行運算所花費的時間:" << (END - START) / CLOCKS_PER_SEC << " S" << endl;
+        delete [] b;
+        b = NULL;
+        /*
+        //print b[]
+        for(int i=0; i<size; i++){
+            cout << b[i] << " ";
+        }
+        */
     }
     
-    //MergeSort
-    int b[] = {10,3,2,6,1,8,7};
-    MergeSort(b, 0, 6);
-    //print b[]
-    for(int i=0; i<7; i++){
-        cout << b[i] << " ";
-    }
-    cout << endl;
-
     cout << "this is the last line!" << endl;
 
     return 0;
@@ -100,6 +112,7 @@ void Merge(int *arr, int head, int mid, int tail){
         rightind++;
         h++;
     }
+    //delete the dynamic array
     delete [] leftarr;
     delete [] rightarr;
     leftarr = NULL;
