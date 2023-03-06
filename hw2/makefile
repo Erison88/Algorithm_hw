@@ -3,10 +3,10 @@ CHECKFLAGS = --leak-check=full -s --show-leak-kinds=all --track-origins=yes
 
 all: 0811549
 
-delrepeat.o: divide_and_conquer.cpp
-	g++ -c divide_and_conquer.cpp
-0811549: divide_and_conquer.o
-	g++ -o 0811549 divide_and_conquer.o
+delrepeat.o: FindMaxArray.cpp
+	g++ -c FindMaxArray.cpp
+0811549: FindMaxArray.o
+	g++ -o 0811549 FindMaxArray.o
 
 do:
 	./0811549 input_2.in output.out
