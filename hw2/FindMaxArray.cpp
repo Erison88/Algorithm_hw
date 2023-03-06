@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include <string.h>
+#include <vector>
 
 using namespace std;
 
 //forward delcaration
-int brutal(int *arr, int size);
+float brutal(float *arr, int size);
 float FindCrossMax(float *arr, int start, int middle, int end);
 float FindMaxArray(float *arr, int start, int end);
 
@@ -47,8 +47,11 @@ int main(int argc, char ** argv){
     */
     cout << datanum << endl;
     float MaxSum = 0.0;
+    //float TestSum = 0.0;
     MaxSum = FindMaxArray(data, 0, datanum);
+    //TestSum = brutal(data, datanum);
     cout << MaxSum << endl;
+    //cout << TestSum << endl;
 
     delete [] data;
 
@@ -57,12 +60,12 @@ int main(int argc, char ** argv){
     return 0;
 }
 
-int brutal(int *arr, int size){
-    int sum; 
-    int max = -size-1;
+float brutal(float *arr, int size){
+    float sum; 
+    float max = -size-1;
     for(int i=0; i<size; i++){
-        sum = 0;
-        for(int j=i; i<size; i++){
+        sum = 0.0;
+        for(int j=i; j<size; j++){
             sum += arr[j];
             if(sum > max){
                 max = sum;
@@ -90,7 +93,11 @@ float FindCrossMax(float *arr, int start, int middle, int end){
 }
 
 float FindMaxArray(float *arr, int start, int end){
+    //vector <float> returnvalue;
     if(start == end)            // base case: only one element
+        //returnvalue.push_back(start);
+        //returnvalue.push_back(end);
+        //returnvalue.push_back(arr[start]);
         return arr[start];
     
     int middle = (start+end)/2;
