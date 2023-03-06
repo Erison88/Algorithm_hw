@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string.h>
 
 using namespace std;
 
@@ -7,7 +9,41 @@ int brutal(int *arr, int size);
 int FindCrossMax(int *arr, int start, int middle, int end);
 int FindMaxArray(int *arr, int start, int end);
 
-int main(){
+int main(int argc, char ** argv){
+    //input file
+    ifstream inputstream;
+    inputstream.open(argv[1], ios::in);
+    if(inputstream.fail()){
+        cout << "Input file is filed." << endl;
+    }
+
+    int datanum = 0;
+    string space;   //for getline space
+    while(getline(inputstream, space)){
+        datanum++;
+    }
+    inputstream.close();
+
+    //inputfile again
+    inputstream.open(argv[1], ios::in);
+    if(inputstream.fail()){
+        cout << "Input file is filed." << endl;
+    }
+
+    int *data = new int[datanum];
+    int index = 0;  // to store the index number
+    while(inputstream >> index){
+        inputstream >> data[index];
+    }
+    cout << index << endl;
+    inputstream.close();
+    /*
+    for(int i=0; i<datanum; i++){
+        data[i] = 
+    }
+    */
+    cout << datanum << endl;
+
     cout << "this is the last line!" << endl;
 
     return 0;
@@ -42,17 +78,17 @@ int FindCrossMax(int *arr, int start, int middle, int end){
         rightSum += arr[i];
         rightMax = max(rightMax, rightSum);
     }
-    return max(max(leftMax, rightMax), leftMax+rightMax);
+    return max(max(leftMax, rightMax), leftMax+rightMax);   // find the Max from the three subsection 
 }
 
 int FindMaxArray(int *arr, int start, int end){
-    if(start == end)
+    if(start == end)            // base case: only one element
         return arr[start];
     
     int middle = (start+end)/2;
-    int leftMax = FindMaxArray(arr, start, middle);
-    int rightMax = FindMaxArray(arr, middle+1, end);
-    int cross = FindCrossMax(arr, start, middle, end);
+    int leftMax = FindMaxArray(arr, start, middle);      // find left Max
+    int rightMax = FindMaxArray(arr, middle+1, end);     // find right Max
+    int cross = FindCrossMax(arr, start, middle, end);   // find the Max from the three section 
 
     return max(max(leftMax, rightMax), cross);
 }
