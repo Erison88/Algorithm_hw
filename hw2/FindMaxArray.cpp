@@ -39,13 +39,17 @@ int main(int argc, char ** argv){
     cout << endl;
     
     inputstream.close();
-    
+    /*
     for(int i=0; i<datanum; i++){
         cout << data[i] <<" ";
     }
     cout << endl;
-    
+    */
     cout << datanum << endl;
+    float MaxSum = 0.0;
+    MaxSum = FindMaxArray(data, 0, datanum);
+    cout << MaxSum << endl;
+
     delete [] data;
 
     cout << "this is the last line!" << endl;
