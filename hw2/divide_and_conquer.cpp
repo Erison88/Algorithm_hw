@@ -31,18 +31,23 @@ int main(int argc, char ** argv){
     }
 
     int *data = new int[datanum];
-    int index = 0;  // to store the index number
+    int index;  // to store the index number
     while(inputstream >> index){
-        inputstream >> data[index];
+        cout << index << " ";
+        inputstream >> data[0];
     }
-    cout << index << endl;
+    cout << endl;
+    cout << data[0] << endl;
+    
     inputstream.close();
     /*
     for(int i=0; i<datanum; i++){
-        data[i] = 
+        cout << data[i] <<" ";
     }
+    cout << endl;
     */
     cout << datanum << endl;
+    delete [] data;
 
     cout << "this is the last line!" << endl;
 
