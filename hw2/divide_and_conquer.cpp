@@ -4,8 +4,8 @@ using namespace std;
 
 //forward delcaration
 int brutal(int *arr, int size);
-int GetCrossMax(int *arr, int size, int start, int middle, int end);
-int divide_and_conquer(int *arr, int size, int start, int end);
+int FindCrossMax(int *arr, int start, int middle, int end);
+int FindMaxArray(int *arr, int start, int end);
 
 int main(){
     cout << "this is the last line!" << endl;
@@ -28,9 +28,11 @@ int brutal(int *arr, int size){
     return max;
 }
 
-int GetCrossMax(int *arr, int size, int start, int middle, int end){
-    int leftMax = arr[middle], leftSum = 0;
-    int rightMax = arr[middle + 1], rightSum =0;
+int FindCrossMax(int *arr, int start, int middle, int end){
+    int leftMax = arr[middle];
+    int rightMax = arr[middle + 1];
+    int leftSum = 0;
+    int rightSum = 0;
 
     for(int i = middle; i>=start; i--){
         leftSum += arr[i];
@@ -43,14 +45,14 @@ int GetCrossMax(int *arr, int size, int start, int middle, int end){
     return max(max(leftMax, rightMax), leftMax+rightMax);
 }
 
-int divide_and_conquer(int *arr, int size, int start, int end){
+int FindMaxArray(int *arr, int start, int end){
     if(start == end)
         return arr[start];
     
     int middle = (start+end)/2;
-    int leftMax = divide_and_conquer(arr, size, start, middle);
-    int rightMax = divide_and_conquer(arr,size, middle+1, end);
-    int cross = GetCrossMax(arr, size, start, middle, end);
+    int leftMax = FindMaxArray(arr, start, middle);
+    int rightMax = FindMaxArray(arr, middle+1, end);
+    int cross = FindCrossMax(arr, start, middle, end);
 
     return max(max(leftMax, rightMax), cross);
 }
