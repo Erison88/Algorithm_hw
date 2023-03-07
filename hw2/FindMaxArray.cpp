@@ -8,13 +8,20 @@ using namespace std;
 float brutal(float *arr, int size);
 float FindCrossMax(float *arr, int start, int middle, int end);
 float FindMaxArray(float *arr, int start, int end);
+// 記錄最大總和subarray的起始位置和終止位置的struct
+struct MaxSubarray {
+    int start;
+    int end;
+    float sum;
+};
+//vector <int> ReturnIndex;
 
 int main(int argc, char ** argv){
     //input file
     ifstream inputstream;
     inputstream.open(argv[1], ios::in);
     if(inputstream.fail()){
-        cout << "Input file is filed." << endl;
+        cout << "Input file is failed." << endl;
     }
 
     int datanum = 0;
@@ -27,7 +34,7 @@ int main(int argc, char ** argv){
     //inputfile again
     inputstream.open(argv[1], ios::in);
     if(inputstream.fail()){
-        cout << "Input file is filed." << endl;
+        cout << "Input file is failed." << endl;
     }
 
     float *data = new float[datanum];
@@ -60,21 +67,6 @@ int main(int argc, char ** argv){
     return 0;
 }
 
-float brutal(float *arr, int size){
-    float sum; 
-    float max = -size-1;
-    for(int i=0; i<size; i++){
-        sum = 0.0;
-        for(int j=i; j<size; j++){
-            sum += arr[j];
-            if(sum > max){
-                max = sum;
-            }
-        }
-    }
-    return max;
-}
-
 float FindCrossMax(float *arr, int start, int middle, int end){
     float leftMax = arr[middle];
     float rightMax = arr[middle + 1];
@@ -93,12 +85,11 @@ float FindCrossMax(float *arr, int start, int middle, int end){
 }
 
 float FindMaxArray(float *arr, int start, int end){
-    //vector <float> returnvalue;
-    if(start == end)            // base case: only one element
-        //returnvalue.push_back(start);
-        //returnvalue.push_back(end);
-        //returnvalue.push_back(arr[start]);
+    cout << start << " " << end << endl;
+    if(start == end){               // base case: only one element
         return arr[start];
+    }            
+        
     
     int middle = (start+end)/2;
     float leftMax = FindMaxArray(arr, start, middle);      // find left Max
@@ -106,4 +97,19 @@ float FindMaxArray(float *arr, int start, int end){
     float cross = FindCrossMax(arr, start, middle, end);   // find the Max from the three section 
 
     return max(max(leftMax, rightMax), cross);
+}
+
+float brutal(float *arr, int size){
+    float sum; 
+    float max = -size-1;
+    for(int i=0; i<size; i++){
+        sum = 0.0;
+        for(int j=i; j<size; j++){
+            sum += arr[j];
+            if(sum > max){
+                max = sum;
+            }
+        }
+    }
+    return max;
 }
