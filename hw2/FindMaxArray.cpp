@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//forward delcaration
+// forward delcaration
 // 記錄最大總和subarray的起始位置和終止位置的struct
 struct MaxSubarray {
     int start;
@@ -16,21 +16,21 @@ MaxSubarray FindMaxArray(float *arr, int start, int end);
 
 
 int main(int argc, char ** argv){
-    //input file
+    // input file
     ifstream inputstream;
     inputstream.open(argv[1], ios::in);
     if(inputstream.fail()){
         cout << "Input file is failed." << endl;
     }
 
-    int datanum = 0;
-    string space;   //for getline space
+    int datanum = 0;    // to count the number of the data
+    string space;   // for getline space
     while(getline(inputstream, space)){
         datanum++;
     }
     inputstream.close();
 
-    //inputfile again
+    // input file again
     inputstream.open(argv[1], ios::in);
     if(inputstream.fail()){
         cout << "Input file is failed." << endl;
@@ -70,7 +70,7 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
     float right_sum = arr[middle+1];
     float right_max = right_sum;
     max_subarray.start = middle;
-    max_subarray.end = middle;
+    max_subarray.end = middle+1;
 
     // find max subarray in left side
     for(int i = middle-1; i>=start; i--){
@@ -88,7 +88,7 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
             max_subarray.end = i;
         }
     }
-    // find the Max from the three subsection
+    // find the Max from the three subsection and return
     float cross_sum = left_max + right_max;
 
     if(left_max>=right_max && left_max>=cross_sum){
@@ -107,7 +107,7 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
 
 MaxSubarray FindMaxArray(float *arr, int start, int end){
     MaxSubarray max_subarray;
-    if(start == end){               // base case: only one element
+    if(start == end){               // base case: only one element, termination condition
         max_subarray.start = start;
         max_subarray.end = end;
         max_subarray.sum = arr[start];
@@ -119,6 +119,7 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
     MaxSubarray right_max_subarray = FindMaxArray(arr, middle+1, end);     // find right Max
     MaxSubarray cross_max_subarray = FindCrossMax(arr, start, middle, end);   // find the Max from the three section 
 
+    // To compare three section, and return the max subarray
     if(left_max_subarray.sum>=right_max_subarray.sum && left_max_subarray.sum>=cross_max_subarray.sum){
         return left_max_subarray;
     }
