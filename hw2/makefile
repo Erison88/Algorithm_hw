@@ -9,7 +9,7 @@ delrepeat.o: FindMaxArray.cpp
 	g++ -o 0811549 FindMaxArray.o
 
 do:
-	./0811549 input_2.in output.out
+	./0811549 input.in output.out
 
 diff:
 	diff -w output1.out an1 > diff1

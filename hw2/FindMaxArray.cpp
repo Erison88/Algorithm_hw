@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 using namespace std;
 
@@ -15,7 +14,6 @@ struct MaxSubarray {
 MaxSubarray FindCrossMax(float *arr, int start, int middle, int end);
 MaxSubarray FindMaxArray(float *arr, int start, int end);
 
-//vector <int> ReturnIndex;
 
 int main(int argc, char ** argv){
     //input file
@@ -52,11 +50,10 @@ int main(int argc, char ** argv){
     cout << endl;
     */
     cout << datanum << endl;
-    //float MaxSum = 0.0;
     
     MaxSubarray max_subarray = FindMaxArray(data, 0, datanum-1);
-    cout << "start:" << max_subarray.start << endl;
-    cout << "end:" << max_subarray.end << endl;
+    cout << "start:" << max_subarray.start+1 << endl;
+    cout << "end:" << max_subarray.end+1 << endl;
     cout << "sum:" << max_subarray.sum << endl;
 
     delete [] data;         // to delete the dynamic array
@@ -73,14 +70,14 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
     float right_sum = arr[middle+1];
     float right_max = right_sum;
     max_subarray.start = middle;
-    max_subarray.end = middle+1;
+    max_subarray.end = middle;
 
     // find max subarray in left side
     for(int i = middle-1; i>=start; i--){
         left_sum += arr[i];
         if(left_sum>left_max){
             left_max = left_sum;
-            max_subarray.start = i+1;
+            max_subarray.start = i;
         }
     }
     // find max subarray in right side
@@ -88,7 +85,7 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
         right_sum += arr[i];
         if(right_sum>right_max){
             right_max = right_sum;
-            max_subarray.end = i+1;
+            max_subarray.end = i;
         }
     }
     // find the Max from the three subsection
@@ -96,19 +93,14 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
 
     if(left_max>=right_max && left_max>=cross_sum){
         max_subarray.sum = left_max;
-        //max_subarray.end = middle+1;
-        cout << "1" << endl;
         return max_subarray;
     }
     else if(right_max>=left_max && right_max>=cross_sum){
         max_subarray.sum = right_max;
-        //max_subarray.start = middle+2;
-        cout << "2" << endl;
         return max_subarray;
     }
     else{
         max_subarray.sum = cross_sum;
-        cout << "3" << endl;
         return max_subarray;
     }
 }
