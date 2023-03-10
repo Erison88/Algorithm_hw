@@ -9,6 +9,7 @@ struct MaxSubarray {
     int start;
     int end;
     float sum;
+    int size;
 };
 //float brutal(float *arr, int size);
 MaxSubarray FindCrossMax(float *arr, int start, int middle, int end);
@@ -55,6 +56,7 @@ int main(int argc, char ** argv){
     cout << "start:" << max_subarray.start+1 << endl;
     cout << "end:" << max_subarray.end+1 << endl;
     cout << "sum:" << max_subarray.sum << endl;
+    cout << "size:" << max_subarray.size << endl;
 
     delete [] data;         // to delete the dynamic array
 
@@ -93,14 +95,17 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
 
     if(left_max>=right_max && left_max>=cross_sum){
         max_subarray.sum = left_max;
+        max_subarray.size = (max_subarray.end-max_subarray.start)+1;
         return max_subarray;
     }
     else if(right_max>=left_max && right_max>=cross_sum){
         max_subarray.sum = right_max;
+        max_subarray.size = (max_subarray.end-max_subarray.start)+1;
         return max_subarray;
     }
     else{
         max_subarray.sum = cross_sum;
+        max_subarray.size = (max_subarray.end-max_subarray.start)+1;
         return max_subarray;
     }
 }
@@ -111,6 +116,7 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
         max_subarray.start = start;
         max_subarray.end = end;
         max_subarray.sum = arr[start];
+        max_subarray.size = 1;
         return max_subarray;
     }            
         
@@ -121,12 +127,15 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
 
     // To compare three section, and return the max subarray
     if(left_max_subarray.sum>=right_max_subarray.sum && left_max_subarray.sum>=cross_max_subarray.sum){
+        max_subarray.size = left_max_subarray.size;
         return left_max_subarray;
     }
     else if(right_max_subarray.sum>=left_max_subarray.sum && right_max_subarray.sum>=cross_max_subarray.sum){
+        max_subarray.size = right_max_subarray.size;
         return right_max_subarray;
     }
     else{
+        max_subarray.size = cross_max_subarray.size;
         return cross_max_subarray;
     }
 }
