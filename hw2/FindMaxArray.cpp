@@ -60,11 +60,8 @@ int main(int argc, char ** argv){
         cout << "sum:" << max_subarray[i].sum << endl;
         cout << "size:" << max_subarray[i].size << endl;
     }
-    
 
     delete [] data;         // to delete the dynamic array
-
-    cout << "this is the last line!" << endl;
 
     return 0;
 }
@@ -115,9 +112,9 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
 }
 
 vector <MaxSubarray> FindMaxArray(float *arr, int start, int end){
-    vector <MaxSubarray> max_subarrays;
+    vector <MaxSubarray> max_subarrays; // To consider the same size case
     if(start == end){               // base case: only one element, termination condition
-        MaxSubarray max_subarray;
+        MaxSubarray max_subarray;   
         max_subarray.start = start;
         max_subarray.end = end;
         max_subarray.sum = arr[start];
