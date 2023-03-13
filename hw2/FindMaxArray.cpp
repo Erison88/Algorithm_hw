@@ -144,9 +144,12 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
     if(equal_sum_subarrays.size()==1){
         return equal_sum_subarrays[0];
     } 
-    else{
+    else{   // there are same sum condition and return the smaller size
         MaxSubarray min_size_subarray = equal_sum_subarrays[0];
         for (int i=1; i<equal_sum_subarrays.size(); i++){
+            if(equal_sum_subarrays[i].size<min_size_subarray.size){
+                min_size_subarray = equal_sum_subarrays[i];
+            }
             if(equal_sum_subarrays[i].size<min_size_subarray.size){
                 min_size_subarray = equal_sum_subarrays[i];
             }
