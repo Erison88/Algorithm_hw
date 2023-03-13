@@ -45,12 +45,7 @@ int main(int argc, char ** argv){
     }
     
     inputstream.close();
-    /*
-    for(int i=0; i<datanum; i++){
-        cout << data[i] <<" ";
-    }
-    cout << endl;
-    */
+    
     cout << datanum << endl;
     
     vector <MaxSubarray> max_subarray = FindMaxArray(data, 0, datanum-1);
@@ -60,6 +55,16 @@ int main(int argc, char ** argv){
         cout << "sum:" << max_subarray[i].sum << endl;
         cout << "size:" << max_subarray[i].size << endl;
     }
+    //output file
+    ofstream outputstream;
+    outputstream.open(argv[2], ios::out);
+    for(int i=0; i<max_subarray.size(); i++){
+        outputstream << "start:" << max_subarray[i].start+1 << endl;
+        outputstream << "end:" << max_subarray[i].end+1 << endl;
+        outputstream << "sum:" << max_subarray[i].sum << endl;
+        outputstream << "size:" << max_subarray[i].size << endl;
+    }
+    outputstream.close();
 
     delete [] data;         // to delete the dynamic array
 
