@@ -127,6 +127,33 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
     MaxSubarray cross_max_subarray = FindCrossMax(arr, start, middle, end);   // find the Max from the three section 
 
     // To compare three section, and return the max subarray
+    vector <MaxSubarray> max_subarrays;
+    max_subarrays.push_back(left_max_subarray);
+    max_subarrays.push_back(right_max_subarray);
+    max_subarrays.push_back(cross_max_subarray);
+
+    float max_sum = max(left_max_subarray.sum, max(right_max_subarray.sum, cross_max_subarray.sum));
+    // To consider the same sum condition and to compare the size of subarray
+    vector <MaxSubarray> equal_sum_subarrays;
+    for(int i=0; i<max_subarrays.size(); i++){
+        if(max_subarrays[i].sum==max_sum){
+            equal_sum_subarrays.push_back(max_subarrays[i]);
+        }
+    }
+
+    if(equal_sum_subarrays.size()==1){
+        return equal_sum_subarrays[0];
+    } 
+    else{
+        MaxSubarray min_size_subarray = equal_sum_subarrays[0];
+        for (int i=1; i<equal_sum_subarrays.size(); i++){
+            if(equal_sum_subarrays[i].size<min_size_subarray.size){
+                min_size_subarray = equal_sum_subarrays[i];
+            }
+        }
+        return min_size_subarray;
+    }
+    /*
     if(left_max_subarray.sum>=right_max_subarray.sum && left_max_subarray.sum>=cross_max_subarray.sum){
         max_subarray.size = left_max_subarray.size;
         return left_max_subarray;
@@ -139,6 +166,7 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
         max_subarray.size = cross_max_subarray.size;
         return cross_max_subarray;
     }
+    */
 }
 
 float brutal(float *arr, int size){
