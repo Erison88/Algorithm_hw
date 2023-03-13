@@ -14,7 +14,7 @@ struct MaxSubarray {
 };
 //float brutal(float *arr, int size);
 MaxSubarray FindCrossMax(float *arr, int start, int middle, int end);
-MaxSubarray FindMaxArray(float *arr, int start, int end);
+vector <MaxSubarray> FindMaxArray(float *arr, int start, int end);
 
 
 int main(int argc, char ** argv){
@@ -53,11 +53,14 @@ int main(int argc, char ** argv){
     */
     cout << datanum << endl;
     
-    MaxSubarray max_subarray = FindMaxArray(data, 0, datanum-1);
-    cout << "start:" << max_subarray.start+1 << endl;
-    cout << "end:" << max_subarray.end+1 << endl;
-    cout << "sum:" << max_subarray.sum << endl;
-    cout << "size:" << max_subarray.size << endl;
+    vector <MaxSubarray> max_subarray = FindMaxArray(data, 0, datanum-1);
+    for(int i=0; i<max_subarray.size(); i++){
+        cout << "start:" << max_subarray[i].start+1 << endl;
+        cout << "end:" << max_subarray[i].end+1 << endl;
+        cout << "sum:" << max_subarray[i].sum << endl;
+        cout << "size:" << max_subarray[i].size << endl;
+    }
+    
 
     delete [] data;         // to delete the dynamic array
 
@@ -111,28 +114,29 @@ MaxSubarray FindCrossMax(float *arr, int start, int middle, int end){
     }
 }
 
-MaxSubarray FindMaxArray(float *arr, int start, int end){
-    MaxSubarray max_subarray;
+vector <MaxSubarray> FindMaxArray(float *arr, int start, int end){
+    vector <MaxSubarray> max_subarrays;
     if(start == end){               // base case: only one element, termination condition
+        MaxSubarray max_subarray;
         max_subarray.start = start;
         max_subarray.end = end;
         max_subarray.sum = arr[start];
         max_subarray.size = 1;
-        return max_subarray;
+        max_subarrays.push_back(max_subarray);
+        return max_subarrays;
     }            
         
     int middle = (start+end)/2;
-    MaxSubarray left_max_subarray = FindMaxArray(arr, start, middle);      // find left Max
-    MaxSubarray right_max_subarray = FindMaxArray(arr, middle+1, end);     // find right Max
+    vector <MaxSubarray> left_max_subarray = FindMaxArray(arr, start, middle);      // find left Max
+    vector <MaxSubarray> right_max_subarray = FindMaxArray(arr, middle+1, end);     // find right Max
     MaxSubarray cross_max_subarray = FindCrossMax(arr, start, middle, end);   // find the Max from the three section 
 
     // To compare three section, and return the max subarray
-    vector <MaxSubarray> max_subarrays;
-    max_subarrays.push_back(left_max_subarray);
-    max_subarrays.push_back(right_max_subarray);
+    max_subarrays.push_back(left_max_subarray[0]);
+    max_subarrays.push_back(right_max_subarray[0]);
     max_subarrays.push_back(cross_max_subarray);
 
-    float max_sum = max(left_max_subarray.sum, max(right_max_subarray.sum, cross_max_subarray.sum));
+    float max_sum = max(left_max_subarray[0].sum, max(right_max_subarray[0].sum, cross_max_subarray.sum));
     // To consider the same sum condition and to compare the size of subarray
     vector <MaxSubarray> equal_sum_subarrays;
     for(int i=0; i<max_subarrays.size(); i++){
@@ -142,19 +146,22 @@ MaxSubarray FindMaxArray(float *arr, int start, int end){
     }
 
     if(equal_sum_subarrays.size()==1){
-        return equal_sum_subarrays[0];
+        return equal_sum_subarrays;
     } 
     else{   // there are same sum condition and return the smaller size
-        MaxSubarray min_size_subarray = equal_sum_subarrays[0];
-        for (int i=1; i<equal_sum_subarrays.size(); i++){
-            if(equal_sum_subarrays[i].size<min_size_subarray.size){
-                min_size_subarray = equal_sum_subarrays[i];
+        vector <MaxSubarray> min_size_subarrays;
+        int min_size = equal_sum_subarrays[0].size;
+        for (int i=0; i<equal_sum_subarrays.size(); i++){
+            if(equal_sum_subarrays[i].size<min_size){
+                min_size = equal_sum_subarrays[i].size;
+                min_size_subarrays.clear();
+                min_size_subarrays.push_back(equal_sum_subarrays[i]);
             }
-            if(equal_sum_subarrays[i].size<min_size_subarray.size){
-                min_size_subarray = equal_sum_subarrays[i];
+            else if(equal_sum_subarrays[i].size==min_size){
+                min_size_subarrays.push_back(equal_sum_subarrays[i]);
             }
         }
-        return min_size_subarray;
+        return min_size_subarrays;
     }
     /*
     if(left_max_subarray.sum>=right_max_subarray.sum && left_max_subarray.sum>=cross_max_subarray.sum){
